@@ -18,6 +18,7 @@ int mode = 1;
 PImage img;
 String imgFileName = "MyImage";
 String fileType = "png";
+String timestamp;
 
 int loops = 1;
 
@@ -33,7 +34,8 @@ boolean saved = false;
 
 void setup() {
   img = loadImage(imgFileName+"."+fileType);
-  
+  //create timestamp to add to filename (prevents deletion of prior saved files)
+  timestamp = year() + "_" + nf(month(), 2) + "_" + nf(day(), 2) + "_" + nf(hour(), 2) + "_" + nf(minute(), 2);
   // use only numbers (not variables) for the size() command, Processing 3
   size(1, 1);
   
@@ -72,7 +74,7 @@ void draw() {
   if(!saved && frameCount >= loops) {
     
 	// save img
-    img.save(imgFileName+"_"+mode+".png");
+    img.save(imgFileName+"_"+mode+"_"+timestamp+".png");
 	
     saved = true;
     println("Saved "+frameCount+" Frame(s)");
@@ -145,7 +147,6 @@ void sortRow() {
   }
 }
 
-
 void sortColumn() {
   // current column
   int x = column;
@@ -194,7 +195,6 @@ void sortColumn() {
     y = yend+1;
   }
 }
-
 
 // black x
 int getFirstNotBlackX(int x, int y) {
